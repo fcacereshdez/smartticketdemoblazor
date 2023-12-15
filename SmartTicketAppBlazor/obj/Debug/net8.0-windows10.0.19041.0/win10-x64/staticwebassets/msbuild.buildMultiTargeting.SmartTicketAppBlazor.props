@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\SmartTicketAppBlazor.props" />
+</Project>

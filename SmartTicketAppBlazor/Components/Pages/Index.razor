@@ -1,0 +1,97 @@
+﻿@page "/"
+@using SmartTicketAppBlazor.Data
+@using SmartTicketAppBlazor.Models
+@inject LoginData LoginData
+@inject NavigationManager NavigationManager
+
+<PageTitle>Inicio</PageTitle>
+
+<div class="header header-fixed header-logo-center header-auto-show">
+    <a href="#" class="header-title">Inicio</a>
+</div>
+
+<div id="footer-bar" class="footer-bar-6">
+    <a href="#"><i class="fa fa-comment"></i><span>Contacto</span></a>
+    <a href="#" class="active-nav"><i class="fa fa-calendar"></i><span>Eventos</span></a>
+    <a href="#" class="circle-nav"><i class="fa fa-home"></i><span>Inicio</span></a>
+    <a href="#"><i class="fa fa-ticket"></i><span>Mis tickets</span></a>
+    <a href="#" data-menu="menu-main"><i class="fa fa-user"></i><span>Cuenta</span></a>
+</div>
+
+<div class="page-content">
+
+    <div class="card notch-clear rounded-0 solid-dark mb-n5">
+        <div class="card-body pt-4">
+            <h1 class="color-white font-30 float-start">Inicio</h1>
+        </div>
+    </div>
+
+    <div class="card card-style bg-transparent shadow-0 mt-4 rounded-sm">
+        <div class="search-box search-dark shadow-xxl border-0 mt-4 bg-theme rounded-sm bottom-0">
+            <i class="fa fa-search ms-n3"></i>
+            <input type="text" class="border-0" placeholder="Puedes buscar por artista, categoría o lugar" data-search>
+        </div>
+    </div>
+
+
+    <div class="content mt-3 pt-2 mb-0">
+        <div class="d-flex">
+            <div class="align-self-center">
+                <h1 class="mb-0 font-18">Próximos eventos</h1>
+            </div>
+            <div class="ms-auto align-self-center">
+                <a href="#" class="float-end font-12 font-400">Ver todo</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row pt-1 p-2">
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @foreach(var item in events)
+                {
+                    <div class="carousel-item active">
+                        <img src="@item.Image" class="d-block w-100 rounded" alt="@item.Title">
+                    </div>
+                }
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+
+
+</div>
+    
+@code{
+    private string username = "";
+    private List<EventsModel> events = new List<EventsModel>();
+    private List<EventsModel> events2 = new List<EventsModel>();
+
+    protected override async Task OnInitializedAsync(){
+        if(LoginData.Name == null || LoginData.Name == "")
+        {
+            NavigationManager.NavigateTo("/login");
+        }
+        else
+        {
+            username = LoginData.Name;
+            
+            events.Add(new EventsModel { Title = "Makano Memorias Tour USA en Nashville", Description = "El Rey del Reggaeton Romantic Style invade la ciudad de Nashville con sus mejores éxitos... ven y di presente en el espectáculo musical de Makano.", Image = "https://res.cloudinary.com/tickeri/image/upload/f_auto,c_limit,w_400,q_auto/v1699302803/aiopjcny9o4i3x5btjs1.jpg", Distance = "30 M", Stars = 2.5M, Status = "Popular" });
+            events.Add(new EventsModel { Title = "Jorge Guerrero y José Gregorio Oquendo", Description = "Jorge Guerrero por primera vez en Miami junto a José Gregorio Oquendo y artistas invitados, para disfrutar de una parranda criolla en vísperas de navidad.", Image = "https://res.cloudinary.com/tickeri/image/upload/f_auto,c_limit,w_400,q_auto/v1700359913/w611bl6o7cxnqxbmwtru.jpg", Distance = "7 KM", Stars = 4.5M, Status = "Popular" });
+            events.Add(new EventsModel { Title = "Porfi Baloa y sus Adolescentes- Atlanta", Description = "Será una noche inolvidable con el Sonido Original de Porfi Baloa y sus Adolescentes, para ponerlos a guarachar y disfrutar del mejor sonido de nuestra Salsa.", Image = "https://res.cloudinary.com/tickeri/image/upload/f_auto,c_limit,w_400,q_auto/v1700953222/fjwzbg8pmhzmp48xvotp.jpg", Distance = "200 M", Stars = 3.5M, Status = "New" });
+
+            events2.Add(new EventsModel { Title = "LOS PALMERAS - ARLINGTON TX", Description = "", Image = "https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?cs=srgb&dl=pexels-wolfgang-2747449.jpg&fm=jpg", Distance = "30 M cerca", Stars = 2.5M, Status = "Popular" });
+            events2.Add(new EventsModel { Title = "BABY RASTA Y GRINGO EN CONCIERTO", Description = "", Image = "https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?cs=srgb&dl=pexels-wolfgang-2747449.jpg&fm=jpg", Distance = "7 KM cerca", Stars = 4.5M, Status = "Popular" });
+            events2.Add(new EventsModel { Title = "CHARLY & JOHAYRON - CONCIERTO", Description = "", Image = "https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?cs=srgb&dl=pexels-wolfgang-2747449.jpg&fm=jpg", Distance = "200 M cerca", Stars = 3.5M, Status = "New" });
+        }
+    }
+}
+    
+

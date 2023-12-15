@@ -1,0 +1,58 @@
+﻿@page "/login"
+@using SmartTicketAppBlazor.Data
+@using SmartTicketAppBlazor.Models
+@inject NavigationManager NavigationManager
+@inject LoginData LoginData;
+
+<PageTitle>Entrar</PageTitle>
+
+<div class="page-content pb-0">
+
+    <div class="content px-4 py-5">
+
+        <div class="container h-100">
+            <div class="row h-100 justify-content-center align-items-center">
+            <img src="images/logo_st.png" width="250" class="mb-4" />
+
+                <EditForm Model="@login" OnInvalidSubmit="@ValidateLogin" OnValidSubmit="@ValidateLogin">
+                    <DataAnnotationsValidator />
+  
+            <div class="input-style input-transparent validate-field mb-4">
+                    <input type="name" @bind=login.Email class="form-control validate-name" id="form1a" autocomplete="off" placeholder="Correo electrónico">
+                <label for="form1a" class="color-highlight">Username</label>
+                        <ValidationMessage For="@(() => login.Email)" style="color:#ed0500!important"></ValidationMessage>
+            </div>
+            <div class="input-style input-transparent validate-field mb-4">
+                    <input type="password" @bind=login.Password class="form-control validate-password" id="form1ab" placeholder="Contraseña">
+                <label for="form1ab" class="color-highlight">Password</label>
+                        <ValidationMessage For="@(() => login.Password)" style="color:#ed0500!important"></ValidationMessage>
+            </div>
+
+                    <button type="submit" class="btn btn-full btn-l font-600 font-13 btn-st-red mt-4 rounded-s" style="width:100%">Entrar</button>
+             
+                </EditForm>
+
+
+            <div class="row pt-3 mb-3">
+                <div class="col-12 text-center text-white">
+                    <a href="#" class="color-highlight">¿Olvidaste tu contraseña?</a>
+                </div>
+            </div>
+
+        </div>
+        </div>
+    </div>
+
+</div>
+
+@code{
+    LoginModel login = new LoginModel();
+
+    void ValidateLogin(){
+        if (login.Email == "demo@gmail.com" && login.Password == "12345")
+        {
+            LoginData.Name = "Francisco";
+            NavigationManager.NavigateTo("/");
+        }
+    }
+}

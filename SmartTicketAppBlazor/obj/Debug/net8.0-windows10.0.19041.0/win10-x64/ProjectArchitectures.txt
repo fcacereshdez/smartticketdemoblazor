@@ -1,0 +1,1 @@
+C:\Users\Francisco\source\repos\SmartTicketAppBlazor\SmartTicketAppBlazor\SmartTicketAppBlazor.csproj;x64
